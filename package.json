@@ -1,0 +1,17 @@
+{
+  "name": "wise_sample_code",
+  "version": "1.0.0",
+  "description": "Wise wallet sample code",
+  "private": true,
+  "scripts": {
+    "run": "node main.js"
+  },
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.7"
+  },
+  "devDependencies": {
+    "babel-register": "^6.26.0"
+  }
+}
