@@ -5,7 +5,8 @@
   "private": true,
   "scripts": {
     "step1": "node step1.js",
-    "step2": "node step2.js"
+    "step2": "node step2.js",
+    "step3": "node step3.js"
   },
   "dependencies": {
     "crypto": "^1.0.1",

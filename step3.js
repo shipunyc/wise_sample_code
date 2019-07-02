@@ -31,18 +31,19 @@ const apiKey = 'vmPUZE6mv9SD5VNHk4HlWFsOr6aKE2zvsw0MuIgwCIPy6utIco14y7Ju91duEh8A
 const apiSecret = 'NhqPtmdSJYdKjVHjA7PZj4Mge3R5YNiP1e3UZjInClVN65XAbvqqM6A7H5fATj0j';
 
 
-const createWallet = async (userId) => {
-  console.log('===Running createWallet===');
+const setNotificationUrl = async (callbackUrl, password) => {
+  console.log('===Running setNotificationUrl===');
 
   const json = {
-    userId: userId
+    url: callbackUrl,
+    password: password
   };
-
+  
   const jsonSigned = addSignature(json, apiSecret);
 
   try {
     const text = await rp.post({
-      uri: url + '/api/v1/createWallet',
+      uri: url + '/api/v1/setNotificationUrl',
       headers: {
         'X-WISE-APIKEY': apiKey
       }
@@ -54,39 +55,9 @@ const createWallet = async (userId) => {
   }
 }
 
-const getWalletInfo = async (userId) => {
-  console.log('===Running getWalletInfo===');
-
-  const query = 'userId=' + userId + '&symbol=WISE';
-
-  const querySigned = addSignature(query, apiSecret);
-
-  try {
-    const text = await rp.get({
-      uri: url + '/api/v1/getWalletInfo?' + querySigned,
-      headers: {
-        'X-WISE-APIKEY': apiKey
-      }
-    });
-
-    console.log(text);
-
-    return JSON.parse(text);
-  } catch (e) {
-    console.log(e.statusCode, e.error);
-  }
-}
-
-
-
 
 const run = async() => {
-  await createWallet('a1');
-  await createWallet('a2');
-  await getWalletInfo('a1');
-  await getWalletInfo('a2');
-
-  console.log('Before running step 2, please manually deposit 1000 WISE to wallet a1.');
+  await setNotificationUrl('http://fakeurl', 'NEW PASSWORD');
 }
 
 
