@@ -85,10 +85,12 @@ const withdraw = async (fromUserId, toAddress, amount) => {
 }
 
 
-const getTransactions = async (userId) => {
+const getTransactions = async (userId, status) => {
   console.log('===Running getTransactions===');
 
-  const query = 'userId=' + userId + '&symbol=WISE&includeWithdraws=true&includeDeposits=true&includeReduces=true&includeAdds=true&limit=10&offset=0';
+  const query = 'userId=' + userId + '&status='+ status + '&symbol=WISE&includeWithdraws=true&includeDeposits=true&includeReduces=true&includeAdds=true&limit=10&offset=0';
+
+  console.log('query:', query);
 
   const querySigned = addSignature(query, apiSecret);
 
@@ -112,8 +114,12 @@ const getTransactions = async (userId) => {
 const run = async() => {
   await transferBalance('a1', 'a2', 500);
   await withdraw('a1', '0x77D3aA05402640487e4be0D31142DE83d45d134B', 200);
-  await getTransactions('a1');
-  await getTransactions('a2');
+  await getTransactions('a1', -1);
+  await getTransactions('a2', -1);
+  await getTransactions('a2', 0);
+  await getTransactions('a2', 1);
+  await getTransactions('a2', 2);
+  await getTransactions('a2', 3);
 }
 
 
