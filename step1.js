@@ -54,6 +54,30 @@ const createWallet = async (userId) => {
   }
 }
 
+const createTemporaryWallet = async (userId, duration) => {
+  console.log('===Running createTemporaryWallet===');
+
+  const json = {
+    userId: userId,
+    duration: duration
+  };
+
+  const jsonSigned = addSignature(json, apiSecret);
+
+  try {
+    const text = await rp.post({
+      uri: url + '/api/v1/createTemporaryWallet',
+      headers: {
+        'X-WISE-APIKEY': apiKey
+      }
+    }).form(jsonSigned);
+
+    console.log(text);
+  } catch (e) {
+    console.log(e.statusCode, e.error);
+  }
+}
+
 const getWalletInfo = async (userId) => {
   console.log('===Running getWalletInfo===');
 
@@ -83,6 +107,8 @@ const getWalletInfo = async (userId) => {
 const run = async() => {
   await createWallet('a1');
   await createWallet('a2');
+  await createTemporaryWallet('a1', 300);
+  await createTemporaryWallet('a2', 360);
   await getWalletInfo('a1');
   await getWalletInfo('a2');
 
