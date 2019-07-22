@@ -111,6 +111,32 @@ const getTransactions = async (userId, status) => {
 }
 
 
+const lookUpDepositTransactions = async (field, keyword, limit, offset) => {
+  console.log('===Running lookUpDepositTransactions===');
+
+  const query = 'field=' + field + '&keyword='+ keyword + '&symbol=WISE&limit=' + limit + '&offset=' + offset;
+
+  console.log('query:', query);
+
+  const querySigned = addSignature(query, apiSecret);
+
+  try {
+    const text = await rp.get({
+      uri: url + '/api/v1/lookUpDepositTransactions?' + querySigned,
+      headers: {
+        'X-WISE-APIKEY': apiKey
+      }
+    });
+
+    console.log(text);
+
+    return JSON.parse(text);
+  } catch (e) {
+    console.log(e.statusCode, e.error);
+  }
+}
+
+
 const run = async() => {
   await transferBalance('a1', 'a2', 500);
   await withdraw('a1', '0x77D3aA05402640487e4be0D31142DE83d45d134B', 200);
@@ -120,6 +146,10 @@ const run = async() => {
   await getTransactions('a2', 1);
   await getTransactions('a2', 2);
   await getTransactions('a2', 3);
+
+  await lookUpDepositTransactions('userId', 111, 100, 0);
+  await lookUpDepositTransactions('destination', '0x77D3aA05402640487e4be0D31142DE83d45d134B', 100, 0);
+  await lookUpDepositTransactions('reference', 'reference1', 100, 0);
 }
 
 

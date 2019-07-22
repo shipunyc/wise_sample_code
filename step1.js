@@ -54,12 +54,14 @@ const createWallet = async (userId) => {
   }
 }
 
-const createTemporaryWallet = async (userId, duration) => {
+const createTemporaryWallet = async (userId, duration, notificationUrl, reference) => {
   console.log('===Running createTemporaryWallet===');
 
   const json = {
     userId: userId,
-    duration: duration
+    duration: duration,
+    notificationUrl: notificationUrl,
+    reference: reference
   };
 
   const jsonSigned = addSignature(json, apiSecret);
@@ -107,8 +109,8 @@ const getWalletInfo = async (userId) => {
 const run = async() => {
   await createWallet('a1');
   await createWallet('a2');
-  await createTemporaryWallet('a1', 300);
-  await createTemporaryWallet('a2', 360);
+  await createTemporaryWallet('a1', 300, 'http://localhost', 'reference1');
+  await createTemporaryWallet('a2', 360, 'http://localhost', 'reference2');
   await getWalletInfo('a1');
   await getWalletInfo('a2');
 
