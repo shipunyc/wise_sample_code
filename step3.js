@@ -45,7 +45,7 @@ const setNotificationUrl = async (callbackUrl, password) => {
     const text = await rp.post({
       uri: url + '/api/v1/setNotificationUrl',
       headers: {
-        'X-WISE-APIKEY': apiKey
+        'X-WISDOM-APIKEY': apiKey
       }
     }).form(jsonSigned);
 

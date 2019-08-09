@@ -44,7 +44,7 @@ const createWallet = async (userId) => {
     const text = await rp.post({
       uri: url + '/api/v1/createWallet',
       headers: {
-        'X-WISE-APIKEY': apiKey
+        'X-WISDOM-APIKEY': apiKey
       }
     }).form(jsonSigned);
 
@@ -70,7 +70,7 @@ const createTemporaryWallet = async (userId, duration, notificationUrl, referenc
     const text = await rp.post({
       uri: url + '/api/v1/createTemporaryWallet',
       headers: {
-        'X-WISE-APIKEY': apiKey
+        'X-WISDOM-APIKEY': apiKey
       }
     }).form(jsonSigned);
 
@@ -83,7 +83,7 @@ const createTemporaryWallet = async (userId, duration, notificationUrl, referenc
 const getWalletInfo = async (userId) => {
   console.log('===Running getWalletInfo===');
 
-  const query = 'userId=' + userId + '&symbol=WISE';
+  const query = 'userId=' + userId + '&symbol=WISDOM';
 
   const querySigned = addSignature(query, apiSecret);
 
@@ -91,7 +91,7 @@ const getWalletInfo = async (userId) => {
     const text = await rp.get({
       uri: url + '/api/v1/getWalletInfo?' + querySigned,
       headers: {
-        'X-WISE-APIKEY': apiKey
+        'X-WISDOM-APIKEY': apiKey
       }
     });
 
@@ -114,7 +114,7 @@ const run = async() => {
   await getWalletInfo('a1');
   await getWalletInfo('a2');
 
-  console.log('Before running step 2, please manually deposit 1000 WISE to wallet a1.');
+  console.log('Before running step 2, please manually deposit 1000 WISDOM to wallet a1.');
 }
 
 

@@ -37,7 +37,7 @@ const transferBalance = async (fromUserId, toUserId, amount) => {
   const json = {
     fromUserId: fromUserId,
     toUserId: toUserId,
-    symbol: 'WISE',
+    symbol: 'WISDOM',
     quantity: amount
   };
   
@@ -47,7 +47,7 @@ const transferBalance = async (fromUserId, toUserId, amount) => {
     const text = await rp.post({
       uri: url + '/api/v1/transfer',
       headers: {
-        'X-WISE-APIKEY': apiKey
+        'X-WISDOM-APIKEY': apiKey
       }
     }).form(jsonSigned);
 
@@ -63,7 +63,7 @@ const withdraw = async (fromUserId, toAddress, amount) => {
 
   const json = {
     userId: fromUserId,
-    symbol: 'WISE',
+    symbol: 'WISDOM',
     to: toAddress,
     quantity: amount
   };
@@ -74,7 +74,7 @@ const withdraw = async (fromUserId, toAddress, amount) => {
     const text = await rp.post({
       uri: url + '/api/v1/withdraw',
       headers: {
-        'X-WISE-APIKEY': apiKey
+        'X-WISDOM-APIKEY': apiKey
       }
     }).form(jsonSigned);
 
@@ -88,7 +88,7 @@ const withdraw = async (fromUserId, toAddress, amount) => {
 const getTransactions = async (userId, status) => {
   console.log('===Running getTransactions===');
 
-  const query = 'userId=' + userId + '&status='+ status + '&symbol=WISE&includeWithdraws=true&includeDeposits=true&includeReduces=true&includeAdds=true&limit=10&offset=0';
+  const query = 'userId=' + userId + '&status='+ status + '&symbol=WISDOM&includeWithdraws=true&includeDeposits=true&includeReduces=true&includeAdds=true&limit=10&offset=0';
 
   console.log('query:', query);
 
@@ -98,7 +98,7 @@ const getTransactions = async (userId, status) => {
     const text = await rp.get({
       uri: url + '/api/v1/getTransactions?' + querySigned,
       headers: {
-        'X-WISE-APIKEY': apiKey
+        'X-WISDOM-APIKEY': apiKey
       }
     });
 
@@ -114,7 +114,7 @@ const getTransactions = async (userId, status) => {
 const lookUpDepositTransactions = async (field, keyword, limit, offset) => {
   console.log('===Running lookUpDepositTransactions===');
 
-  const query = 'field=' + field + '&keyword='+ keyword + '&symbol=WISE&limit=' + limit + '&offset=' + offset;
+  const query = 'field=' + field + '&keyword='+ keyword + '&symbol=WISDOM&limit=' + limit + '&offset=' + offset;
 
   console.log('query:', query);
 
@@ -124,7 +124,7 @@ const lookUpDepositTransactions = async (field, keyword, limit, offset) => {
     const text = await rp.get({
       uri: url + '/api/v1/lookUpDepositTransactions?' + querySigned,
       headers: {
-        'X-WISE-APIKEY': apiKey
+        'X-WISDOM-APIKEY': apiKey
       }
     });
 
